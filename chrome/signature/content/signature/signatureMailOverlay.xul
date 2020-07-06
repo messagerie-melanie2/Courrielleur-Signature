@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM "chrome://signature/locale/signature.dtd">
+<overlay id="signatureMailOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script 
+    type="application/x-javascript" 
+    src="chrome://signature/content/signaturePreferenceLib.js">
+</script>
+
+<script 
+    type="application/x-javascript"
+    src="chrome://signature/content/signatureOverlay.js">
+</script>
+
+
+    <keyset id="tasksKeys">
+    <!-- CETE:desactiver
+      <key id="key_randomSignature" 
+           key="&signature.thunderbird.shortcutkey.random.key;" 
+           oncommand="sig_menu_insert(sig_random())" 
+           modifiers="&signature.thunderbird.shortcutkey.random.modifier;"/>
+           -->
+      <key id="key_insertDefault" 
+           key="&signature.thunderbird.shortcutkey.default.key;" 
+           oncommand="sig_menu_insert(sig_defaultSignature())" 
+           modifiers="&signature.thunderbird.shortcutkey.default.modifier;"/>
+    </keyset> 
+  
+  
+  
+<!--
+ This is for the right click menu.
+ need to change this to only insert it into the context menu for text fields 
+-->
+
+<popup id="msgComposeContext">
+  <menu id="signature-menu" 
+  position="3" 
+  label="&signature.thunderbird.contextmenu.insert.title;" 
+  accesskey="&signature.thunderbird.contextmenu.insert.accesskey;" 
+  insertafter="context-selectAll">
+    <menupopup id="signature-popup">
+      
+      <menuitem 
+    id="sig_menu_item_template" 
+    label="hidden" 
+    hidden="true" 
+    value="false" oncommand="sig_menu_insert(event.target.value);"/>
+      
+    <menuseparator id="sig_menu_seperator"/>
+    <!--  CETE:desactiver  
+    <menuitem 
+     id="sig_menu_random" 
+    key="key_randomSignature"
+     label="&signature.thunderbird.contextmenu.random.title;"  
+     accesskey="&signature.thunderbird.contextmenu.random.accesskey;" 
+    value="static"
+     oncommand="sig_menu_insert(sig_random())"/>
+-->
+      <menuitem 
+    id="sig_menu_options" 
+    label="&signature.thunderbird.contextmenu.options.title;" 
+    accesskey="&signature.thunderbird.contextmenu.options.accesskey;" 
+    value="static"
+    oncommand="window.openDialog('chrome://signature/content/options.xul','','chrome,all,dependent');"/>
+    </menupopup>
+  </menu>
+</popup>
+
+</overlay>

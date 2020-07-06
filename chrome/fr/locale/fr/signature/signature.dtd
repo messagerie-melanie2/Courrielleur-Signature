@@ -1,0 +1,72 @@
+<!ENTITY signature.about.title "A propos - signature extension">
+<!ENTITY signature.about.whatis.title "Qu'est-ce ?">
+<!ENTITY signature.about.whatis.desc.p1 "Insère un texte dans la boite de texte à l'aide du clic droit ou de la sélection dans le menu">
+<!ENTITY signature.about.whatis.desc.p2 "ajouter une signature standard dans un forum">
+<!ENTITY signature.about.whatdoes.title "Quel texte insérer ?">
+<!ENTITY signature.about.whatdoes.p1 "Tout ce que vous voulez,  vous n'avez qu'à le définir dans les options du menu">
+<!ENTITY signature.about.why.title "Pourquoi ?">
+<!ENTITY signature.about.why.p1 "Je me suis aperçu que certaines personnes qui écrivaient dans les forums mettaient une image à la fin de chacun de leur message.">
+<!ENTITY signature.about.why.p2 "Est-ce que ça ne serait pas pratique de pouvoir le faire directement à partir d'un menu ?">
+<!ENTITY signature.about.why.p3 "Certains voulaient cette extension pour thunderbird, maintenant c'est fait.">
+<!ENTITY signature.about.author.title "Créée par:">
+<!ENTITY signature.about.author.me "miek - special.michael@gmail.com">
+<!ENTITY signature.about.thanks.title "et merci à:">
+<!ENTITY signature.about.thanks.help "Enn on XULPlanet forum">
+<!ENTITY signature.about.credit.bbcode.title "Code BBcode de l'extension par:">
+<!ENTITY signature.about.credit.bbcode.p1 "Jed Brown http://jedbrown.net/">
+<!ENTITY signature.about.credit.cusser.title "BBCode contiennent des codes Cusser:">
+<!ENTITY signature.about.credit.cusser.p1 " http://cusser.net/extensions/">
+<!ENTITY signature.about.credit.random.title "random signature function created by:">
+<!ENTITY signature.about.credit.random.p1 "Rob Woolley">
+<!ENTITY signature.about.translation.title "Translations:">
+<!ENTITY signature.about.translation.it "it-IT: Madman (eXtenZilla.it) ">
+<!ENTITY signature.about.translation.de "de-DE: Henne (http://fx.henne.cc/)">
+<!ENTITY signature.about.translation.fr "fr-FR: Smog The Bat">
+<!ENTITY signature.about.translation.pl "pl-PL: Leszek(teo)Å»yczkowski (http://mozillapl.org/projekty/LeszekZyczkowski?v=1dq6)">
+<!ENTITY signature.about.translation.others "if you want to give me another translation, email me.">
+<!ENTITY signature.about.button.close.title "Fermer">
+
+<!ENTITY signature.options.title "Signature - options">
+<!ENTITY signature.options.saved.title "Enregistrer les signatures">
+<!ENTITY signature.options.button.up.label "Monter">
+<!ENTITY signature.options.button.up.tooltip "Monter l'objet sélectionné dans la liste">
+<!ENTITY signature.options.button.down.label "Descendre">
+<!ENTITY signature.options.button.down.tooltip "Descendre l'objet sélectionné dans la liste">
+<!ENTITY signature.options.button.delete.label "Supprimer">
+<!ENTITY signature.options.button.delete.accesskey "S">
+<!ENTITY signature.options.button.modify.label "Modifier">
+<!ENTITY signature.options.button.modify.accesskey "M">
+<!ENTITY signature.options.button.new.label "Nouveau">
+<!ENTITY signature.options.button.new.accesskey "N">
+<!ENTITY signature.options.modify.title "Modifier la signature">
+<!ENTITY signature.options.modify.name.title "Nom de la signature">
+<!ENTITY signature.options.modify.signature.title "Signature">
+<!ENTITY signature.options.button.save.title "Enregistrer">
+<!ENTITY signature.options.button.save.accesskey "E">
+<!ENTITY signature.options.button.ok.title "Ok">
+<!ENTITY signature.options.button.ok.accesskey "O">
+<!ENTITY signature.options.button.cancel.title "Annuler">
+<!ENTITY signature.options.button.cancel.accesskey "A">
+<!ENTITY signature.options.error.deletetemplate "Ce n'est pas une signature ! ... ceux ne sont pas les signatures que vous recherchez.">
+<!ENTITY signature.options.error.noselection "Vous n'avez rien sélectionné.">
+<!ENTITY signature.options.error.nonodes "impossible d'effectuer cette action puisqu'il n'y a rien à effectuer, créez d'abord une signature.">
+<!ENTITY signature.options.error.saveillegalchar  "Echec de la sauvegarde : caractère incorrect [`] trouvé. Désolé mais ce caractère est réservé.">
+
+<!ENTITY signature.firefox.contextmenu.insert.title "Insérer une signature">
+<!ENTITY signature.firefox.contextmenu.insert.accesskey "I">
+<!ENTITY signature.firefox.contextmenu.options.title "Modifier les signatures()">
+<!ENTITY signature.firefox.contextmenu.options.accesskey "M">
+<!ENTITY signature.firefox.contextmenu.random.title "random signature()">
+<!ENTITY signature.firefox.contextmenu.random.accesskey "r">
+
+
+<!ENTITY signature.thunderbird.contextmenu.insert.title "Insérer une signature">
+<!ENTITY signature.thunderbird.contextmenu.insert.accesskey "I">
+<!ENTITY signature.thunderbird.contextmenu.options.title "Modifier les signatures()">
+<!ENTITY signature.thunderbird.contextmenu.options.accesskey "M">
+<!ENTITY signature.thunderbird.contextmenu.random.title "random signature()">
+<!ENTITY signature.thunderbird.contextmenu.random.accesskey "r">
+<!ENTITY signature.thunderbird.shortcutkey.default.key "D">
+<!ENTITY signature.thunderbird.shortcutkey.default.modifier "accel, shift">
+<!ENTITY signature.thunderbird.shortcutkey.random.key "R">
+<!ENTITY signature.thunderbird.shortcutkey.random.modifier "accel, shift">

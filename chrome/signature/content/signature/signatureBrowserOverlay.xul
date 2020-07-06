@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- import the locales -->
+<!DOCTYPE overlay SYSTEM "chrome://signature/locale/signature.dtd">
+<overlay id="signatureBrowserOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<!-- This imports our javascript.-->
+
+<script 
+    type="application/x-javascript" 
+    src="chrome://signature/content/signaturePreferenceLib.js">
+</script>
+
+
+<script 
+    type="application/x-javascript"
+    src="chrome://signature/content/signatureOverlay.js">
+</script>
+
+
+  
+  
+<popup id="contentAreaContextMenu">
+
+<!-- Thanks to Enn on XULPlanet forum for the tip off on event.target-->
+  <menu id="signature-menu" 
+  position="3" 
+  label="&signature.firefox.contextmenu.insert.title;" 
+  accesskey="&signature.firefox.contextmenu.insert.accesskey;" 
+  insertafter="context-selectAll">
+    <menupopup>
+      <menuitem 
+    id="sig_menu_item_template" 
+    label=""
+    hidden="true" 
+    value="" 
+    oncommand="sig_menu_insert(event.target.value);"/>
+    
+      <menuseparator id="sig_menu_seperator"/>
+
+    <menuitem 
+     id="sig_menu_random" 
+     label="&signature.firefox.contextmenu.random.title;"  
+     accesskey="&signature.firefox.contextmenu.random.accesskey;" 
+    value="static"
+     oncommand="sig_menu_insert(sig_random())"/>
+    
+      <menuitem 
+    id="sig_menu_options" 
+    label="&signature.firefox.contextmenu.options.title;" 
+    accesskey="&signature.firefox.contextmenu.options.accesskey;" 
+    value="static"
+    oncommand="window.openDialog('chrome://signature/content/options.xul','','chrome,all,dependent');"/>
+    
+    </menupopup>
+  </menu>
+</popup>
+
+
+</overlay>
+

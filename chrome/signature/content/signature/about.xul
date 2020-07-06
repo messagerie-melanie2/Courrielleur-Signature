@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM "chrome://signature/locale/signature.dtd">
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<window class="dialog"
+  title="&signature.about.title;"
+  orient="vertical"
+  autostretch="always"
+  onload="sizeToContent()"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<!--  onload="sizeToContent()" -->
+<groupbox align="center" orient="horizontal" style="background: lightcyan;">
+  <vbox>
+
+    <hbox>
+      <image src="chrome://signature/skin/signatureb.png"/>
+      <spacer flex="1"/>
+    </hbox>
+    
+  <text value="&signature.about.whatis.title;" style="font-weight: bold;color:#00AAAA;"/>
+    <description>&signature.about.whatis.desc.p1;</description>
+  <description>&signature.about.whatis.desc.p2;</description>
+
+  <text value="&signature.about.whatdoes.title;?" style="font-weight: bold;color:#00AAAA;"/>
+   <description>&signature.about.whatdoes.p1;</description>
+
+  <text value="&signature.about.why.title;" style="font-weight: bold;color:#00AAAA;"/>
+   <description>&signature.about.why.p1;</description>
+   <description>&signature.about.why.p2;</description>
+   <description>&signature.about.why.p3;</description>
+  
+  
+   <separator/>
+ 
+ 
+   <hbox> 
+     <vbox>
+       <text value="&signature.about.author.title;" style="font-weight: bold;color:#AAAAAA;"/>
+       <text 
+     onclick="window.open('mailto:special.michael@gmail.com?subject=signature');"       
+     value="&signature.about.author.me;" 
+     style="color:#CCCCCC;"/>
+       <text value="&signature.about.thanks.title;" style="font-weight: bold;color:#AAAAAA;"/>
+       <text value="&signature.about.thanks.help;" style="color:#CCCCCC;"/>
+     </vbox> 
+  <spacer flex="1"/>
+  <spacer flex="1"/>
+
+     <vbox>
+       <text value="&signature.about.credit.bbcode.title;" style="font-weight: bold;color:#AAAAAA;"/>
+       <text 
+     value="&signature.about.credit.bbcode.p1;" 
+     style="color:#CCCCCC;"
+     onclick="window.open('http://jedbrown.net/'); window.close();"/>
+       <text value="&signature.about.credit.random.title;" style="font-weight: bold;color:#AAAAAA;"/>
+       <text 
+     value="&signature.about.credit.random.p1;" 
+     style="color:#CCCCCC;"/>
+       
+     
+       
+       
+       <text 
+     value="&signature.about.credit.cusser.title;" 
+     style="font-weight: bold;color:#AAAAAA;"/>
+       <text 
+     value="&signature.about.credit.cusser.p1;"
+     style="color:#CCCCCC;" 
+     onclick="window.open('http://cusser.net/extensions/'); window.close();"/>
+     </vbox>
+  <spacer flex="1"/>
+  <spacer flex="1"/>
+ </hbox>
+    <hbox>
+     <vbox>
+       <text value="&signature.about.translation.title;" style="font-weight: bold;color:#AAAAAA;"/>
+       <text 
+     value="&signature.about.translation.it;" 
+     style="color:#CCCCCC;"/>
+       <text 
+     value="&signature.about.translation.fr;" 
+     style="color:#CCCCCC;"/>
+       <text 
+     value="&signature.about.translation.de;" 
+     style="color:#CCCCCC;"/>
+       <text 
+     value="&signature.about.translation.pl;" 
+     style="color:#CCCCCC;"/>
+       <text 
+     value="&signature.about.translation.others;" 
+     style="color:#CCCCCC;"/>
+
+     </vbox>
+   
+   </hbox>
+  </vbox>
+ 
+</groupbox>
+
+<hbox>
+  <spacer flex="1"/>
+
+  <button label="&signature.about.button.close.title;" oncommand="window.close();"/>
+
+</hbox>
+
+</window>

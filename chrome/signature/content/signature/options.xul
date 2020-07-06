@@ -1,0 +1,368 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay SYSTEM "chrome://signature/locale/signature.dtd">
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<window class="dialog"
+  title="&signature.options.title;"
+        buttons="accept, cancel"
+        onload="sig_init();" 
+        persist="screenX screenY width height"
+        orient="vertical"
+        autostretch="always"
+        style="background: gainsboro; width: 500px;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+
+  <!-- extraction of some functions involving prefs -->
+  <script 
+    type="application/x-javascript" 
+    src="chrome://signature/content/signaturePreferenceLib.js">
+   </script>
+
+  <script type="application/x-javascript">
+    <![CDATA[
+   
+
+      function sig_init(){
+    var n= getPrefString("signature.names");
+    var s= getPrefString("signature.signatures");
+    if (n==null || n== ""){n= defaultNames(); s= defaultSignatures();}
+   
+   
+
+    //split the string into an array of signatures.
+    var names= n.split("`");
+    var signatures= s.split("`");	  
+
+    //this is what we want to insert them into
+    var l= document.getElementById("sig_list");
+    
+    //this is what we use to insert them
+    var template= l.getItemAtIndex(l.getRowCount()-1);
+    //a bug occurs if we insert when it's selected	  
+    l.clearSelection();
+
+    var len = names.length;
+    for(var i= 0; i<len; i++){
+        
+        //insert the bugger
+        var new_node= template.cloneNode(true);	
+        new_node.disabled= false;
+        new_node.childNodes[1].attributes[0].value= signatures[i];
+        new_node.childNodes[0].attributes[0].value= names[i];
+        template.parentNode.insertBefore(new_node,template);	      
+    }//for
+          
+    window.sizeToContent(); 
+      }
+
+      function sig_move_up(){
+  var l= document.getElementById("sig_list");
+  if(l.hasChildNodes()){
+    
+    var selected= l.selectedItems;
+    if (selected != ""){
+      var row= l.getSelectedItem(0);
+            //don't want it to fall off the end!
+            if(l.getIndexOfItem(row)<0){return;}
+      if(row.disabled){return;}//my template            
+      if(row.previousSibling != null){
+    brother = row.previousSibling;
+                if(brother.previousSibling == null){return;}
+    //couldn't get the .label to work :( 
+    var name= row.childNodes[0].attributes[0].value;
+    var text= row.childNodes[1].attributes[0].value;
+    row.childNodes[0].attributes[0].value= 	
+        brother.childNodes[0].attributes[0].value ;
+    row.childNodes[1].attributes[0].value= 
+        brother.childNodes[1].attributes[0].value;
+    brother.childNodes[0].attributes[0].value=name;    
+    brother.childNodes[1].attributes[0].value=text;	
+    l.selectItem(brother);
+      }//if previous sibling
+    }//if something selected
+  }//if has childnodes
+      }//move up!
+
+      function sig_move_down(){
+  var l= document.getElementById("sig_list");
+  if(l.hasChildNodes()){
+    
+    var selected= l.selectedItems;
+    if (selected != ""){
+      var row= l.getSelectedItem(0);
+      if(row.nextSibling != null){
+                if(row.nextSibling.disabled){return;}//my template
+    brother = row.nextSibling;
+    //couldn't get the .label to work :( 
+    var name= row.childNodes[0].attributes[0].value;
+    var text= row.childNodes[1].attributes[0].value;
+    row.childNodes[0].attributes[0].value= 	
+        brother.childNodes[0].attributes[0].value ;
+    row.childNodes[1].attributes[0].value= 
+        brother.childNodes[1].attributes[0].value;
+    brother.childNodes[0].attributes[0].value=name;    
+    brother.childNodes[1].attributes[0].value=text;
+    l.selectItem(brother);
+      }//if next sibling
+    }//if something selected
+  }//if child nodes
+      }//move down!
+
+
+      function sig_delete(){  
+  var l= document.getElementById("sig_list");
+  if(l.hasChildNodes()){
+    
+    var selected= l.selectedItems;
+    if (selected != ""){
+      var row= l.getSelectedItem(0);
+      if(row.disabled){
+    //this is my template node 
+    var errstr= document.getElementById("error_deletetemplate").value;
+    alert(errstr);
+    return;
+      }
+      
+      row.parentNode.removeChild(row);
+    }
+    else{
+    var errstr= document.getElementById("error_noselection").value;
+    alert(errstr);
+    }
+  }else{
+    var errstr= document.getElementById("error_nonodes").value;
+    alert(errstr);
+  }
+  
+      }   
+
+
+      //modify existing signature
+      function sig_modify(){  
+  var l = document.getElementById("sig_list");
+  if(!l.hasChildNodes()){
+     var errstr= document.getElementById("error_nonodes").value;
+     alert(errstr);
+     return;
+  }
+  var selected= l.selectedItems;
+  if (selected != ""){
+    var row=l.getSelectedItem(0); //a list item element 
+    //( i want to have his children ;)
+    
+    //couldn't get the .label to work :( 
+    var name= row.childNodes[0].attributes[0].value;
+    var text= row.childNodes[1].attributes[0].value;
+    document.getElementById("sig_text").value=text;
+    document.getElementById("sig_name").value=name;	  
+  }else{
+    var errstr= document.getElementById("error_noselection").value;
+    alert(errstr);
+  }
+      }   
+
+      //start a new one
+      function sig_new(){  
+  document.getElementById("sig_text").value= "";
+  document.getElementById("sig_name").value= "";
+      }//function sig_new
+
+      
+      //save the one we are currently modifying
+      function sig_save(){  
+      //is it in the list?
+    var l = document.getElementById("sig_list");
+    if(!l.hasChildNodes()){
+        //should never get here, explode
+        alert("ERROR: function: sig_save, \n"+
+        "       file:     options.xul\n"+
+                    "       chrome:   //content/signature\n\n"
+        +"list is empty, have lost template node.");
+        return;
+    }
+
+    var name= document.getElementById("sig_name").value;
+    var text= document.getElementById("sig_text").value;
+
+  
+    if((name.match("`") == "`")||(text.match("`") == "`")){
+      var errstr= document.getElementById("error_saveillegalchar").value;
+    alert(errstr);
+    return;
+    }
+    //yes = update the blighter
+    for(  var i= l.getRowCount()-1; i>=0; i--){	
+
+        var row = l.getItemAtIndex(i); 
+        if ( row.childNodes[0].attributes[0].value == name){
+      //update
+      row.childNodes[1].attributes[0].value= text;
+      row.childNodes[0].attributes[0].value= name;		  
+      return;
+        }
+  
+    }
+  
+
+    //insert the bugger
+    //a bug occurs if we insert when it's selected
+    l.clearSelection();
+    var template= l.getItemAtIndex(l.getRowCount()-1);
+    var new_node= template.cloneNode(true);
+    new_node.disabled= false;
+    new_node.childNodes[1].attributes[0].value= text;
+    new_node.childNodes[0].attributes[0].value= name;
+    template.parentNode.insertBefore(new_node,template)
+
+
+      }//function sig_save()
+
+      //save the signatures to preferences
+      function sig_ok(){   
+    //extract from the list.
+    var l = document.getElementById("sig_list");
+
+    //don't add last one. that's my template
+    var i= l.getRowCount()-1;
+
+    //put the names and signatures into an array
+    var names=Array(i);
+    var signatures=Array(i);
+
+    for( var j=0; j<i; j++){
+       var row = l.getItemAtIndex(j); 
+       signatures[j]= (row.childNodes[1].attributes[0].value);
+       names[j]= (row.childNodes[0].attributes[0].value);
+     }
+    setPrefString("signature.names", names.join("`"));
+    setPrefString("signature.signatures", signatures.join("`"));
+
+    window.close();
+      }
+
+
+      //cancel means no save, just exit
+      function sig_cancel(){  
+    window.close();
+      }
+       ]]>
+  </script>
+  <vbox>
+    <groupbox>
+      <hbox>
+      <image src="chrome://signature/skin/signatureb.png" onclick="window.open('chrome://signature/content/about.xul');"/>
+      <spacer flex="1"/>
+      </hbox>
+      <separator class="thin"/>
+
+      <groupbox style="background: lightcyan;">
+
+  <label value="&signature.options.saved.title;" style="font-weight: bold;"/>
+  <hbox>
+  <vbox flex="1">
+    <spacer flex="1"/>
+    <button id="sig_up" 
+      label="&signature.options.button.up.label;" 
+      default="true"  
+      oncommand="sig_move_up()"
+      tooltiptext="&signature.options.button.up.tooltip;"/>
+
+    <button id="sig_down" 
+      label="&signature.options.button.down.label;" 
+      default="true"   
+      oncommand="sig_move_down()"
+      tooltiptext="&signature.options.button.down.tooltip;"/>
+    <spacer flex="2"/>
+  </vbox>
+  <vbox flex="100">
+    <hbox>
+      <listbox id="sig_list" rows="5" flex="100">
+        <listcols>
+    <listcol flex="1" minwidth="50"/>
+    <listcol flex="5"/>
+        </listcols>
+        
+        <listitem disabled="true">
+    <listcell label=""/>
+    <listcell label=""/>
+        </listitem>
+      </listbox>
+      
+    </hbox>
+    <hbox>
+      <spacer flex="1"/>
+      <button id="sig_delete" 
+       class="dialog" 
+       label="&signature.options.button.delete.label;" 
+       default="true"  
+       accesskey="&signature.options.button.delete.accesskey;" 
+       oncommand="sig_delete()"/>
+      <button id="sig_modify" 
+        class="dialog" 
+        label="&signature.options.button.modify.label;" 
+        default="true"  
+        accesskey="&signature.options.button.modify.accesskey;" 
+        oncommand="sig_modify();"/>
+      <button id="sig_new"    
+        class="dialog" 
+        label="&signature.options.button.new.label;"    
+        default="true"  
+        accesskey="&signature.options.button.new.accesskey;" 
+        oncommand="sig_new();"/>
+    </hbox>
+  </vbox>
+      </hbox>
+    </groupbox>
+
+
+  <groupbox style="background: lightcyan;">
+    <label value="&signature.options.modify.title;" style="font-weight: bold;"/>    
+    <label value=" "/>    
+
+    <hbox>
+      <label width="80" control="sig_name" value="&signature.options.modify.name.title;"/>
+      <textbox flex="1" id="sig_name" multiline="false" value=""/>    
+    </hbox>
+    <hbox>
+      <label width="80" control="sig_text" value="&signature.options.modify.signature.title;"/>
+      <textbox flex="1" id="sig_text" multiline="true" value=""/>    
+    </hbox>
+    <hbox>
+      <spacer flex="1"/>
+      <button id="sig_save" 
+        class="dialog" 
+        label="&signature.options.button.save.title;" 
+        default="true"  
+        accesskey="&signature.options.button.save.accesskey;" 
+        oncommand="sig_save();"/>
+    </hbox>    
+    
+</groupbox>
+<spacer flex="2"/>
+<separator class="thin"/>
+    </groupbox>
+    
+    <hbox>
+      <spacer flex="1"/>
+      <button id="sig_ok"     
+        class="dialog" 
+        label="&signature.options.button.ok.title;"     
+        default="true"  
+        accesskey="&signature.options.button.ok.accesskey;" 
+        oncommand="sig_ok();"/>
+      <button id="sig_cancel" 
+        class="dialog" 
+        label="&signature.options.button.cancel.title;" 
+        default="true"  
+        accesskey="&signature.options.button.cancel.accesskey;" 
+        oncommand="sig_cancel();"/>
+    </hbox>
+    
+  </vbox>
+  <!-- hidden error elements -->
+  <label id="error_deletetemplate" value="&signature.options.error.deletetemplate;"	hidden="true"/>
+  <label id="error_noselection" value="&signature.options.error.noselection;"	hidden="true"/>
+  <label id="error_nonodes" value="&signature.options.error.nonodes;"	hidden="true"/>
+  <label id="error_saveillegalchar" value="&signature.options.error.saveillegalchar;"	hidden="true"/>
+  
+</window>
